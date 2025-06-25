@@ -47,7 +47,7 @@ function Formulaire($departements , $current , $ageMin , $ageMax)
 }
 function fiche_employe($emp_no) {
     $conn = dbconnect();
-    $req = "SELECT e.emp_no, e.last_name, e.first_name, e.birth_date, e.hire_date, d.dept_name FROM employees e JOIN dept_emp de ON e.emp_no = de.emp_no JOIN departments d ON de.dept_no = d.dept_no WHERE e.emp_no = '$emp_no' LIMIT 20,10";
+    $req = "SELECT e.emp_no, e.last_name, e.first_name, e.birth_date, e.hire_date, d.dept_name FROM employees e JOIN dept_emp de ON e.emp_no = de.emp_no JOIN departments d ON de.dept_no = d.dept_no WHERE e.emp_no = '$emp_no'";
     $result = mysqli_query($conn, $req);
     $formulaire = [];
     if ($row = mysqli_fetch_assoc($result)) {
