@@ -57,4 +57,7 @@ $departement = afficher_departement();
 
     <script src="../assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
+    <footer>
+    <a href="formulaire.php">Rechercher</a>    
+    </footer>
 </html>

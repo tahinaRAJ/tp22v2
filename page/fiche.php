@@ -37,6 +37,24 @@ $salaire = salary_history($_GET['code']);
                     </tr>
                 </tbody>
             </table>
+            <table class="table table-bordered table-striped" id="salaryTable">
+                <thead>
+                    <tr>
+                        <th>Salaire</th>
+                        <th>Date de début</th>
+                        <th>Date de fin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($salaire as $sal): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($sal['salary']) ?></td>
+                        <td><?= htmlspecialchars($sal['from_date']) ?></td>
+                        <td><?= htmlspecialchars($sal['to_date']) ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
         </main>
 </body>
 </html>
