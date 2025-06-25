@@ -35,7 +35,10 @@ $employes = afficher_employes_par_departement($dept_no);
                 <?php foreach ($employes as $emp): ?>
                 <tr>
                     <td><?= htmlspecialchars($emp['emp_no']) ?></td>
-                    <td><?= htmlspecialchars($emp['last_name']) ?></td>
+                    <td>
+                    <a href="fiche.php?code=<?= urlencode($emp['emp_no']) ?>">
+                            <?= htmlspecialchars($emp['last_name']) ?>
+                        </a></td>
                     <td><?= htmlspecialchars($emp['first_name']) ?></td>
                 </tr>
                 <?php endforeach; ?>
