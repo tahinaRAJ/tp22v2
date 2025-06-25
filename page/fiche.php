@@ -55,6 +55,6 @@ $salaire = salary_history($_GET['code']);
                     <?php endforeach; ?>
                 </tbody>
                  </table>
-        </main>
+            </main>
 </body>
 </html>
