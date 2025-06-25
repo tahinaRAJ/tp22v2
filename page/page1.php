@@ -21,6 +21,7 @@ $departement = afficher_departement();
                 <tr>
                     <th>Numéro</th>
                     <th>Nom</th>
+                    <th>Manager actuelle</th>
                 </tr>
             <head>
             <body>
@@ -35,6 +36,18 @@ $departement = afficher_departement();
                         <a href="employes.php?dept_no=<?= urlencode($dept['dept_no']) ?>">
                             <?= htmlspecialchars($dept['dept_name']) ?>
                         </a>
+                    </td>
+                    <td>
+                        <?php 
+                        $managers = afficher_current_manager($dept['dept_no']);
+                        if (!empty($managers)) {
+                            foreach ($managers as $manager) {
+                                echo htmlspecialchars($manager['first_name']) . ' ' . htmlspecialchars($manager['last_name']);
+                            }
+                        } else {
+                            echo "Aucun manager actuel";
+                        }
+                        ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>

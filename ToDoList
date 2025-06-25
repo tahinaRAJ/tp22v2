@@ -1,9 +1,22 @@
--Creer index.php et y mettre un header vers page/page1;
--connexion.php:
-    creer la fonction DBconnect;
--fonction.php:
-    creer la fonction afficher_departement;
-    creer la fonction afficher_employe_par_departement
--page1.php:
+-Creer index.php et y mettre un header vers page/page1;(qui = Noah) (ok)
+-connexion.php:  (ok)
+    creer la fonction DBconnect (qui = Noah)  (ok)
+-fonction.php:  (ok)
+    creer la fonction afficher_departement (qui = Noah)  (ok)
+    creer la fonction afficher_employe_par_departement (qui = Tahina)  (ok)
+    creer la fonction afficher_current_manager (qui = Noah)  (ok)
+-page1.php:  (ok)
+    Front :  (ok)
+        -Afficher les differents departements et leur numeros (qui = Noah)  (ok)
+        -Donner via get les id des departement a employees.php (qui = Tahina)  (ok)
+    Back :  (ok)
+        -Appelle des focntions afficher_departement (qui = Noah)  (ok)
+        -Appelle des fonctions afficher_current_manager (qui = Noah)  (ok)
+-employes.php  (ok)
+    Back:  (ok)
+        -Appelle de la focntion afficher_employe_par_departement (qui = Tahina)  (ok)
+    Front :  (ok)
+        -Afficher tous les employes du departeemt choisie (qui = Tahina)  (ok)
+
     
 
