@@ -1,0 +1,9 @@
+-Creer index.php et y mettre un header vers page/page1;
+-connexion.php:
+    creer la fonction DBconnect;
+-fonction.php:
+    creer la fonction afficher_departement;
+    creer la fonction afficher_employe_par_departement
+-page1.php:
+    
+
