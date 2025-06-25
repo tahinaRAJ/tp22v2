@@ -11,8 +11,11 @@ $current = isset($_POST['current']) ? $_POST['current'] : '';
 $ageMin = isset($_POST['ageMin']) ? $_POST['ageMin'] : '';
 $ageMax = isset($_POST['ageMax']) ? $_POST['ageMax'] : '';
 
-// Appeler la fonction de recherche avec pagination
-$resultats = formulaire($departement, $current, $ageMin, $ageMax, $limit, $offset);
+
+$resultats = Formulaire($departement, $current, $ageMin, $ageMax, $limit, $offset);
+
+$total = count_total_employes($departement, $current, $ageMin, $ageMax);
+$totalPages = ceil($total / $limit);
 
 ?>
 <!DOCTYPE html>
@@ -49,7 +52,24 @@ $resultats = formulaire($departement, $current, $ageMin, $ageMax, $limit, $offse
             <ul class="pagination">
                 <?php if ($page > 1): ?>
                     <li class="page-item">
-                        <a class="page-link" href="?page=<?= $page - 1 ?>">Précédent</a>
+                        <form method="post" action="?page=<?= $page - 1 ?>">
+                            <input type="hidden" name="departement" value="<?= htmlspecialchars($departement) ?>">
+                            <input type="hidden" name="current" value="<?= htmlspecialchars($current) ?>">
+                            <input type="hidden" name="ageMin" value="<?= htmlspecialchars($ageMin) ?>">
+                            <input type="hidden" name="ageMax" value="<?= htmlspecialchars($ageMax) ?>">
+                            <button type="submit" class="page-link">Précédent</button>
+                        </form>
+                    </li>
+                <?php endif; ?>
+                <?php if ($page < $totalPages): ?>
+                    <li class="page-item">
+                        <form method="post" action="?page=<?= $page + 1 ?>">
+                            <input type="hidden" name="departement" value="<?= htmlspecialchars($departement) ?>">
+                            <input type="hidden" name="current" value="<?= htmlspecialchars($current) ?>">
+                            <input type="hidden" name="ageMin" value="<?= htmlspecialchars($ageMin) ?>">
+                            <input type="hidden" name="ageMax" value="<?= htmlspecialchars($ageMax) ?>">
+                            <button type="submit" class="page-link">Suivant</button>
+                        </form>
                     </li>
                 <?php endif; ?>
             </ul>

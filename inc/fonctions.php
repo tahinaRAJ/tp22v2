@@ -33,13 +33,14 @@ function afficher_current_manager($current)
     }
     return $managers;
 }
-function Formulaire($departements , $current , $ageMin , $ageMax)
+function Formulaire($departements , $current , $ageMin , $ageMax, $limit = 20, $offset = 0)
 {
     $conn = dbconnect();
     $req = "SELECT e.emp_no, e.last_name, e.first_name, d.dept_name FROM employees e JOIN dept_emp de ON e.emp_no = de.emp_no JOIN departments d ON de.dept_no = d.dept_no WHERE de.dept_no = '" . $departements . "' AND e.birth_date BETWEEN DATE_SUB(NOW(), INTERVAL " . (int)$ageMax . " YEAR) AND DATE_SUB(NOW(), INTERVAL " . (int)$ageMin . " YEAR)";
     if ($current !== '') {
         $req .= " AND e.first_name LIKE '%" . $current . "%'";
     }
+    $req .= " LIMIT $offset, $limit";
     $result = mysqli_query($conn, $req);
     $employes = [];
     while ($row = mysqli_fetch_assoc($result)) {
@@ -67,6 +68,16 @@ function salary_history($emp_no) {
         $salaries[] = $row;
     }
     return $salaries;
+}
+function count_total_employes($departement, $current, $ageMin, $ageMax) {
+    $conn = dbconnect();
+    $req = "SELECT COUNT(*) as total FROM employees e JOIN dept_emp de ON e.emp_no = de.emp_no JOIN departments d ON de.dept_no = d.dept_no WHERE de.dept_no = '" . $departement . "' AND e.birth_date BETWEEN DATE_SUB(NOW(), INTERVAL " . (int)$ageMax . " YEAR) AND DATE_SUB(NOW(), INTERVAL " . (int)$ageMin . " YEAR)";
+    if ($current !== '') {
+        $req .= " AND e.first_name LIKE '%" . $current . "%'";
+    }
+    $result = mysqli_query($conn, $req);
+    $row = mysqli_fetch_assoc($result);
+    return $row['total'];
 }
 
 ?>
