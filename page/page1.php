@@ -19,7 +19,6 @@ $departement = afficher_departement();
         <table class="table table-bordered table-striped" id="departementTable">
             <head>
                 <tr>
-                    <th>Numéro</th>
                     <th>Nom</th>
                     <th>Manager actuelle</th>
                 </tr>
@@ -27,11 +26,6 @@ $departement = afficher_departement();
             <body>
                 <?php foreach ($departement as $dept): ?>
                 <tr>
-                    <td>
-                        <a href="employes.php?dept_no=<?= urlencode($dept['dept_no']) ?>">
-                            <?= htmlspecialchars($dept['dept_no']) ?>
-                        </a>
-                    </td>
                     <td>
                         <a href="employes.php?dept_no=<?= urlencode($dept['dept_no']) ?>">
                             <?= htmlspecialchars($dept['dept_name']) ?>

@@ -1,11 +1,9 @@
 <?php
 require("../inc/fonctions.php");
-// Pagination
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $limit = 20;
 $offset = ($page - 1) * $limit;
 
-// Récupérer les filtres depuis $_POST ou $_GET
 $departement = isset($_POST['departement']) ? $_POST['departement'] : '';
 $current = isset($_POST['current']) ? $_POST['current'] : '';
 $ageMin = isset($_POST['ageMin']) ? $_POST['ageMin'] : '';

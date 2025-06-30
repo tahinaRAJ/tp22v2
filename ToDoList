@@ -5,6 +5,7 @@
     creer la fonction afficher_departement (qui = Noah)  (ok)
     creer la fonction afficher_employe_par_departement (qui = Tahina)  (ok)
     creer la fonction afficher_current_manager (qui = Noah)  (ok)
+    creer la fonction 
 -page1.php:  (ok)
     Front :  (ok)
         -Afficher les differents departements et leur numeros (qui = Noah)  (ok)

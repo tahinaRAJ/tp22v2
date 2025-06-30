@@ -2,7 +2,7 @@
 require("../inc/connexion.php");
 
 function afficher_departement(){
-    $req = "select * from departments";
+    $req = "select * from departments ";
     $result = mysqli_query(dbconnect(), $req); 
 
     $departements = [];
@@ -36,7 +36,7 @@ function afficher_current_manager($current)
 function Formulaire($departements , $current , $ageMin , $ageMax, $limit = 20, $offset = 0)
 {
     $conn = dbconnect();
-    $req = "SELECT e.emp_no, e.last_name, e.first_name, d.dept_name FROM employees e JOIN dept_emp de ON e.emp_no = de.emp_no JOIN departments d ON de.dept_no = d.dept_no WHERE de.dept_no = '" . $departements . "' AND e.birth_date BETWEEN DATE_SUB(NOW(), INTERVAL " . (int)$ageMax . " YEAR) AND DATE_SUB(NOW(), INTERVAL " . (int)$ageMin . " YEAR)";
+    $req = "SELECT e.emp_no, e.last_name, e.first_name, d.dept_name FROM employees e JOIN dept_emp de ON e.emp_no = de.emp_no JOIN departments d ON de.dept_no = d.dept_no WHERE de.dept_no = '" . $departements . "' AND e.birth_date BETWEEN DATE_SUB(NOW(), INTERVAL " . (int)$ageMax . " YEAR) AND DATE_SUB(NOW(), INTERVAL " . (int)$ageMin . " YEAR) ";
     if ($current !== '') {
         $req .= " AND e.first_name LIKE '%" . $current . "%'";
     }
