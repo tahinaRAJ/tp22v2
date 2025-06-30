@@ -61,7 +61,7 @@ $departement = afficher_departement();
                                     </div>
                                 </div>
 
-                                <div class="col-md-6">
+                                <div class="col-md-6">s
                                     <label for="ageMax" class="form-label fw-semibold">
                                         <i class="bi bi-arrow-up-circle me-2"></i>Âge maximum
                                     </label>
