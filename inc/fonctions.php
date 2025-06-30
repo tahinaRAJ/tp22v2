@@ -51,7 +51,7 @@ function Formulaire($departements , $current , $ageMin , $ageMax, $limit = 20, $
 }
 function fiche_employe($emp_no) {
     $conn = dbconnect();
-    $req = "SELECT e.emp_no, e.last_name, e.first_name, e.birth_date, e.hire_date, d.dept_name FROM employees e JOIN dept_emp de ON e.emp_no = de.emp_no JOIN departments d ON de.dept_no = d.dept_no WHERE e.emp_no = '$emp_no'";
+    $req = "SELECT e.emp_no, e.last_name, e.first_name, e.birth_date, e.hire_date, d.dept_name ,e.gender FROM employees e JOIN dept_emp de ON e.emp_no = de.emp_no JOIN departments d ON de.dept_no = d.dept_no WHERE e.emp_no = '$emp_no'";
     $result = mysqli_query($conn, $req);
     $formulaire = [];
     if ($row = mysqli_fetch_assoc($result)) {
@@ -80,4 +80,18 @@ function count_total_employes($departement, $current, $ageMin, $ageMax) {
     return $row['total'];
 }
 
+function afficher_emploi($emp_no) {
+    $conn = dbconnect();
+    $req = "SELECT e.emp_no, e.title, de.from_date, de.to_date 
+            FROM titles e 
+            JOIN dept_emp de 
+            ON e.emp_no = de.emp_no 
+            WHERE e.emp_no = '$emp_no'";
+    $result = mysqli_query($conn, $req);
+    $emplois = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $emplois[] = $row;
+    }
+    return $emplois;
+}
 ?>
