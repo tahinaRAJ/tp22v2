@@ -38,7 +38,7 @@ function Formulaire($departements , $current , $ageMin , $ageMax, $limit = 20, $
     $conn = dbconnect();
     $req = "SELECT e.emp_no, e.last_name, e.first_name, d.dept_name FROM employees e JOIN dept_emp de ON e.emp_no = de.emp_no JOIN departments d ON de.dept_no = d.dept_no WHERE de.dept_no = '" . $departements . "' AND e.birth_date BETWEEN DATE_SUB(NOW(), INTERVAL " . (int)$ageMax . " YEAR) AND DATE_SUB(NOW(), INTERVAL " . (int)$ageMin . " YEAR) ";
     if ($current !== '') {
-        $req .= " AND e.first_name LIKE '%" . $current . "%'";
+        $req .= " AND e.last_name LIKE '%" . $current . "%'";
     }
     $req .= " LIMIT $offset, $limit";
     $result = mysqli_query($conn, $req);
