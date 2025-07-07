@@ -121,7 +121,7 @@ function get_previous_page($currentPage)
 {
     return $currentPage > 1 ? $currentPage - 1 : null;
 }
-s
+
 function get_next_page($currentPage, $totalPages)
 {
     return $currentPage < $totalPages ? $currentPage + 1 : null;

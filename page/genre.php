@@ -107,6 +107,6 @@ $nextPage = get_next_page($page, $totalPages);
     </div>
 
     <script src="../assets/bootstrap/js/bootstrap.bundle.min.js"></script>
-</body>s
+</body>
 
 </html>
