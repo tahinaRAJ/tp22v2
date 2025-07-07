@@ -21,6 +21,9 @@ $departement = afficher_departement();
                     <a href="formulaire.php" class="btn btn-light btn-sm">
                         <i class="bi bi-search me-1"></i>Rechercher
                     </a>
+                    <a href="search.php" class="btn btn-light btn-sm">
+                        <i class="bi bi-search me-1"></i>Info sup
+                    </a>
                 </div>
             </div>
             
