@@ -99,29 +99,25 @@ function afficher_emploi($emp_no)
     }
     return $emplois;
 }
-function Details($departements, $limit = 20, $offset = 0)
+function Details($departements)
 {
     $conn = dbconnect();
-    $req = "SELECT e.first_name, e.last_name, s.salary, e.gender, d.dept_name 
-            FROM employees e 
-            JOIN dept_emp de ON e.emp_no = de.emp_no 
-            JOIN departments d ON de.dept_no = d.dept_no 
-            JOIN salaries s ON e.emp_no = s.emp_no 
-            WHERE d.dept_name = '" . mysqli_real_escape_string($conn, $departements) . "' 
-            LIMIT $offset, $limit";
+    $req = "SELECT gender, total_employees, average_salary
+            FROM v_employee_statistics
+            WHERE dept_name = '" . mysqli_real_escape_string($conn, $departements) . "'";
     $result = mysqli_query($conn, $req);
-    $employes = [];
+    $statistics = [];
     while ($row = mysqli_fetch_assoc($result)) {
-        $employes[] = $row;
+        $statistics[] = $row;
     }
-    return $employes;
+    return $statistics;
 }
 
 function get_previous_page($currentPage)
 {
     return $currentPage > 1 ? $currentPage - 1 : null;
 }
-s
+
 function get_next_page($currentPage, $totalPages)
 {
     return $currentPage < $totalPages ? $currentPage + 1 : null;
