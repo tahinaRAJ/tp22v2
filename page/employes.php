@@ -10,7 +10,7 @@ $dept_no = $_GET['dept_no'];
 $employes = afficher_employes_par_departement($dept_no);
 ?>
 
-<!DOCTYPE html>s
+<!DOCTYPE html>
 <html lang="fr">
 
 <head>
