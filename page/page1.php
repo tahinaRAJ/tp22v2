@@ -4,7 +4,7 @@ $departement = afficher_departement();
 ?>
 
 <!DOCTYPE html>
-<html lang="fr">s
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,6 +32,7 @@ $departement = afficher_departement();
                                 <th class="w-40"><i class="bi bi-building me-1"></i>Nom du département</th>
                                 <th class="w-35"><i class="bi bi-person-badge me-1"></i>Manager actuel</th>
                                 <th class="w-25"><i class="bi bi-gear me-1"></i>Actions</th>
+                                <th class="w-15"><i class="me-1"></i>Nombres d'employes</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -47,19 +48,19 @@ $departement = afficher_departement();
                                 <td>
                                     <?php 
                                     $managers = afficher_current_manager($dept['dept_no']);
-                                    if (!empty($managers)) {
-                                        foreach ($managers as $manager) {
-                                            echo '<span class="badge bg-info text-dark me-1">';
-                                            echo '<i class="bi bi-person-fill-gear me-1"></i>';
-                                            echo htmlspecialchars($manager['first_name']) . ' ' . htmlspecialchars($manager['last_name']);
-                                            echo '</span>';
-                                        }
-                                    } else {
-                                        echo '<span class="badge bg-secondary">';
-                                        echo '<i class="bi bi-person-x me-1"></i>Aucun manager';
-                                        echo '</span>';
-                                    }
                                     ?>
+                                    <?php if (!empty($managers)): ?>
+                                        <?php foreach ($managers as $manager): ?>
+                                            <span class="badge bg-info text-dark me-1">
+                                                <i class="bi bi-person-fill-gear me-1"></i>
+                                                <?= htmlspecialchars($manager['first_name']) . ' ' . htmlspecialchars($manager['last_name']) ?>
+                                            </span>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <span class="badge bg-secondary">
+                                            <i class="bi bi-person-x me-1"></i>Aucun manager
+                                        </span>
+                                    <?php endif; ?>
                                 </td>
                                 <td>
                                     <div class="d-flex gap-2">
@@ -69,6 +70,14 @@ $departement = afficher_departement();
                                         </a>
                                     </div>
                                 </td>
+                                <td class="text-center">
+                                    <?php 
+                                    $count_employees = count(afficher_employes_par_departement($dept['dept_no']))?>
+                                    <span class="badge bg-success">
+                                    <i class="bi bi-people-fill me-1"></i>
+                                    <?= htmlspecialchars($count_employees) ?>
+                                    </span>
+                                    
                             </tr>
                             <?php endforeach; ?>
                         </tbody>
