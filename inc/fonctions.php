@@ -1,9 +1,10 @@
 <?php
 require("../inc/connexion.php");
 
-function afficher_departement(){
+function afficher_departement()
+{
     $req = "select * from departments ";
-    $result = mysqli_query(dbconnect(), $req); 
+    $result = mysqli_query(dbconnect(), $req);
 
     $departements = [];
     while ($row = mysqli_fetch_assoc($result)) {
@@ -12,7 +13,8 @@ function afficher_departement(){
     return $departements;
 }
 
-function afficher_employes_par_departement($dept_no) {
+function afficher_employes_par_departement($dept_no)
+{
     $conn = dbconnect();
     $req = "SELECT e.emp_no, e.last_name, e.first_name  FROM employees e JOIN dept_emp de ON e.emp_no = de.emp_no WHERE de.dept_no = '$dept_no'";
     $result = mysqli_query($conn, $req);
@@ -33,7 +35,7 @@ function afficher_current_manager($current)
     }
     return $managers;
 }
-function Formulaire($departements , $current , $ageMin , $ageMax, $limit = 20, $offset = 0)
+function Formulaire($departements, $current, $ageMin, $ageMax, $limit = 20, $offset = 0)
 {
     $conn = dbconnect();
     $req = "SELECT e.emp_no, e.last_name, e.first_name, d.dept_name FROM employees e JOIN dept_emp de ON e.emp_no = de.emp_no JOIN departments d ON de.dept_no = d.dept_no WHERE de.dept_no = '" . $departements . "' AND e.birth_date BETWEEN DATE_SUB(NOW(), INTERVAL " . (int)$ageMax . " YEAR) AND DATE_SUB(NOW(), INTERVAL " . (int)$ageMin . " YEAR) ";
@@ -47,9 +49,9 @@ function Formulaire($departements , $current , $ageMin , $ageMax, $limit = 20, $
         $employes[] = $row;
     }
     return $employes;
-
 }
-function fiche_employe($emp_no) {
+function fiche_employe($emp_no)
+{
     $conn = dbconnect();
     $req = "SELECT e.emp_no, e.last_name, e.first_name, e.birth_date, e.hire_date, d.dept_name ,e.gender FROM employees e JOIN dept_emp de ON e.emp_no = de.emp_no JOIN departments d ON de.dept_no = d.dept_no WHERE e.emp_no = '$emp_no'";
     $result = mysqli_query($conn, $req);
@@ -59,7 +61,8 @@ function fiche_employe($emp_no) {
     }
     return $formulaire;
 }
-function salary_history($emp_no) {
+function salary_history($emp_no)
+{
     $conn = dbconnect();
     $req = "SELECT s.salary, s.from_date, s.to_date FROM salaries s WHERE s.emp_no = '$emp_no' ORDER BY s.from_date DESC";
     $result = mysqli_query($conn, $req);
@@ -69,7 +72,8 @@ function salary_history($emp_no) {
     }
     return $salaries;
 }
-function count_total_employes($departement, $current, $ageMin, $ageMax) {
+function count_total_employes($departement, $current, $ageMin, $ageMax)
+{
     $conn = dbconnect();
     $req = "SELECT COUNT(*) as total FROM employees e JOIN dept_emp de ON e.emp_no = de.emp_no JOIN departments d ON de.dept_no = d.dept_no WHERE de.dept_no = '" . $departement . "' AND e.birth_date BETWEEN DATE_SUB(NOW(), INTERVAL " . (int)$ageMax . " YEAR) AND DATE_SUB(NOW(), INTERVAL " . (int)$ageMin . " YEAR)";
     if ($current !== '') {
@@ -80,7 +84,8 @@ function count_total_employes($departement, $current, $ageMin, $ageMax) {
     return $row['total'];
 }
 
-function afficher_emploi($emp_no) {
+function afficher_emploi($emp_no)
+{
     $conn = dbconnect();
     $req = "SELECT e.emp_no, e.title, de.from_date, de.to_date 
             FROM titles e 
@@ -94,4 +99,43 @@ function afficher_emploi($emp_no) {
     }
     return $emplois;
 }
-?>
+function Details($departements, $limit = 20, $offset = 0)
+{
+    $conn = dbconnect();
+    $req = "SELECT e.first_name, e.last_name, s.salary, e.gender, d.dept_name 
+            FROM employees e 
+            JOIN dept_emp de ON e.emp_no = de.emp_no 
+            JOIN departments d ON de.dept_no = d.dept_no 
+            JOIN salaries s ON e.emp_no = s.emp_no 
+            WHERE d.dept_name = '" . mysqli_real_escape_string($conn, $departements) . "' 
+            LIMIT $offset, $limit";
+    $result = mysqli_query($conn, $req);
+    $employes = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $employes[] = $row;
+    }
+    return $employes;
+}
+
+function get_previous_page($currentPage)
+{
+    return $currentPage > 1 ? $currentPage - 1 : null;
+}
+
+function get_next_page($currentPage, $totalPages)
+{
+    return $currentPage < $totalPages ? $currentPage + 1 : null;
+}
+
+function count_employees_by_department($departement)
+{
+    $conn = dbconnect();
+    $req = "SELECT COUNT(*) as total 
+            FROM employees e 
+            JOIN dept_emp de ON e.emp_no = de.emp_no 
+            JOIN departments d ON de.dept_no = d.dept_no 
+            WHERE d.dept_name = '" . mysqli_real_escape_string($conn, $departement) . "'";
+    $result = mysqli_query($conn, $req);
+    $row = mysqli_fetch_assoc($result);
+    return $row['total'];
+}
