@@ -62,7 +62,7 @@ $departement = afficher_departement();
                         </small>
                         <small class="d-block mt-1">
                             <i class="bi bi-info-circle me-1"></i>Version 1.0.0
-                        </small>s
+                        </small>
                     </div>
                 </div>
             </div>

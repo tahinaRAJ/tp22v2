@@ -120,6 +120,59 @@ $emplois = afficher_emploi($_GET['code']);
                         </table>
                     </div>
                 </div>
+                <div class="mb-3">
+                    <h5 class="border-bottom pb-2 mb-3"><i class="bi bi-briefcase me-2"></i>Poste le plus long</h4>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th><i class="bi bi-person-workspace me-1"></i>Poste</th>
+                                    <th><i class="bi bi-calendar-check me-1"></i>Date début</th>
+                                    <th><i class="bi bi-calendar-x me-1"></i>Date fin</th>
+                                    <th><i class="bi bi-clock-history me-1"></i>Durée</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($emplois as $empl): ?>
+                                <?php
+                                // Trouver l'emploi avec la durée la plus longue
+                                $maxDuration = 0;
+                                $emploiLong = null;
+                                foreach ($emplois as $empl) {
+                                    $start = new DateTime($empl['from_date']);
+                                    $end = new DateTime($empl['to_date']);
+                                    $interval = $start->diff($end);
+                                    $months = $interval->y * 12 + $interval->m;
+                                    if ($months > $maxDuration) {
+                                        $maxDuration = $months;
+                                        $emploiLong = [
+                                            'title' => $empl['title'],
+                                            'from_date' => $empl['from_date'],
+                                            'to_date' => $empl['to_date'],
+                                            'years' => $interval->y,
+                                            'months' => $interval->m
+                                        ];
+                                    }
+                                }
+                                if ($emploiLong):
+                                ?>
+                                <tr>
+                                    <td class="fw-semibold"><?= htmlspecialchars($emploiLong['title']) ?></td>
+                                    <td><?= htmlspecialchars($emploiLong['from_date']) ?></td>
+                                    <td><?= htmlspecialchars($emploiLong['to_date']) ?></td>
+                                    <td>
+                                        <?php
+                                        echo $emploiLong['years'] > 0 ? $emploiLong['years'] . ' an(s) ' : '';
+                                        echo $emploiLong['months'] > 0 ? $emploiLong['months'] . ' mois' : '';
+                                        ?>
+                                    </td>
+                                </tr>
+                                <?php endif; ?>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
             
             <div class="card-footer bg-transparent d-flex justify-content-between">
